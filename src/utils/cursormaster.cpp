@@ -108,7 +108,9 @@ void CursorMaster::initCursors()
 		for (int i = 0; i < Cursors.count(); i++) {
 			QBitmap bitmap1(names.at(i));
 			QBitmap bitmap1m(masks.at(i));
-			*Cursors.at(i) = new QCursor(bitmap1, bitmap1m, 0, 0);
+			QPixmap pixmap = QPixmap::fromImage(bitmap1.toImage());
+			pixmap.setMask(bitmap1m);
+			*Cursors.at(i) = new QCursor(pixmap, 0, 0);
 		}
 
 		QApplication::instance()->installEventFilter(instance());
